@@ -47,7 +47,6 @@ const ContextSettings = ({
           setTemperature(value);
         }}
       />
-      ;
       <LinkedSlider
         className="my-2"
         label="Top P:"

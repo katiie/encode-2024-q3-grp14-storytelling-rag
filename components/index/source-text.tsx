@@ -1,10 +1,9 @@
 import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
-import { ChangeEvent } from "react";
+import { FileCheck } from "lucide-react";
+import { ChangeEvent, useState } from "react";
 
 const SourceText = ({
   sourceId,
-  text,
   setText,
   setNeedsNewIndex,
 }: {
@@ -13,19 +12,35 @@ const SourceText = ({
   setText: (text: string) => void;
   setNeedsNewIndex: (needsNewIndex: boolean) => void;
 }) => {
+  const [isUploaded, setIsUploaded] = useState(false);
+
+  const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file && file.type === "text/plain") {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        setText(event.target?.result as string);
+        setNeedsNewIndex(true);
+        setIsUploaded(true);
+      };
+      reader.readAsText(file);
+    }
+  };
+
   return (
-    <div className="my-2 flex h-3/4 flex-auto flex-col space-y-2">
-      <Label htmlFor={sourceId}>Source text:</Label>
-      <Textarea
-        id={sourceId}
-        value={text}
-        className="flex-1"
-        onChange={(e: ChangeEvent<HTMLTextAreaElement>) => {
-          setText(e.target.value);
-          setNeedsNewIndex(true);
-        }}
-      />
+    <div className="my-2 space-y-2">
+      <Label htmlFor={sourceId}>Load text:</Label>
+      <div className="flex items-center justify-between">
+        <input
+          type="file"
+          id={sourceId}
+          accept=".txt"
+          onChange={handleFileChange}
+        />
+        {isUploaded && <FileCheck />}
+      </div>
     </div>
   );
 };
+
 export { SourceText };
