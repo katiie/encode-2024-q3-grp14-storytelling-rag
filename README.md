@@ -1,2 +1,7 @@
-# encode_club_grp_14_ts-playground
-The fundamentals of RAG-based inference
+# LlamaIndex.TS Playground
+
+## Getting Started
+
+Run `pnpm install` and `pnpm run dev`
+
+Make sure to set your OpenAI key: `export OPENAI_API_KEY-="sk-..."`
