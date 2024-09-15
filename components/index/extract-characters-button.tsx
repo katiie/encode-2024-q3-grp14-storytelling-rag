@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import { Answer } from "@/pages";
 
 // Query
 const QUERY = "List the name, description, and personality of every character";
@@ -24,7 +25,7 @@ const ExtractCharactersButton = ({
   buildingIndex: boolean;
   runningQuery: boolean;
   setRunningQuery: (runningQuery: boolean) => void;
-  setAnswer: (answer: string) => void;
+  setAnswer: (answer: Answer) => void;
   setBuildingIndex: (buildingIndex: boolean) => void;
   setNeedsNewIndex: (needsNewIndex: boolean) => void;
   text: string;
@@ -69,7 +70,7 @@ const ExtractCharactersButton = ({
 
     const { error, payload } = await result.json();
     if (error) console.log(error);
-    if (payload) setAnswer(payload.response);
+    if (payload) setAnswer(JSON.parse(payload.response) as Answer);
 
     setRunningQuery(false);
   };

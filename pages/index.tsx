@@ -4,7 +4,27 @@ import { useId, useState } from "react";
 import { ExtractCharactersButton } from "@/components/index/extract-characters-button";
 import { SourceText } from "@/components/index/source-text";
 import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
+import { CharactersTable } from "@/components/index/characters-table";
+
+export type Answer = {
+  characters: Character[];
+};
+
+export type Character = {
+  character: string;
+  description: string;
+  personality: string;
+};
+
+const emptyAnswer = {
+  characters: [
+    {
+      character: "",
+      description: "",
+      personality: "",
+    },
+  ],
+};
 
 export default function Home() {
   const answerId = useId();
@@ -13,7 +33,7 @@ export default function Home() {
   const [needsNewIndex, setNeedsNewIndex] = useState(true);
   const [buildingIndex, setBuildingIndex] = useState(false);
   const [runningQuery, setRunningQuery] = useState(false);
-  const [answer, setAnswer] = useState("");
+  const [answer, setAnswer] = useState(emptyAnswer);
 
   return (
     <>
@@ -39,14 +59,9 @@ export default function Home() {
         />
         {!buildingIndex && !needsNewIndex && !runningQuery && (
           <>
-            <div className="my-2 flex h-1/4 flex-auto flex-col space-y-2">
-              <Label htmlFor={answerId}>Answer:</Label>
-              <Textarea
-                className="flex-1"
-                readOnly
-                value={answer}
-                id={answerId}
-              />
+            <div className="my-5 flex h-1/4 flex-auto flex-col space-y-2">
+              <Label htmlFor={answerId}>Characters in the story:</Label>
+              <CharactersTable characters={answer.characters} />
             </div>
           </>
         )}
