@@ -5,7 +5,7 @@ const StoryField = ({ messages }: { messages: { content: string }[] }) => {
         messages.length === 0 ||
         messages[messages.length - 1]?.content.startsWith("Generate")
       }
-      className="rounded-lg bg-gray-700 p-4"
+      className="my-10 rounded-lg bg-gray-700 p-4"
     >
       {messages[messages.length - 1]?.content}
     </div>
