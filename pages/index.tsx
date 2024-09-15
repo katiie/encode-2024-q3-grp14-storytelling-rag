@@ -3,11 +3,13 @@ import { useId, useState } from "react";
 
 import { CharactersTable } from "@/components/index/characters-table";
 import { ExtractCharactersButton } from "@/components/index/extract-characters-button";
+import { GenerateStoryButton } from "@/components/index/generate-story-button";
 import { GenreSelector } from "@/components/index/genres";
 import { SourceText } from "@/components/index/source-text";
 import { Title } from "@/components/index/title";
 import { ToneSelector } from "@/components/index/tones";
 import { Label } from "@/components/ui/label";
+import { Footer } from "@/components/ui/footer";
 
 export type Answer = {
   characters: Character[];
@@ -39,6 +41,7 @@ export default function Home() {
   const [genre, setGenre] = useState("Fantasy");
   const [runningQuery, setRunningQuery] = useState(false);
   const [answer, setAnswer] = useState(emptyAnswer);
+  const [generatingStory, setGeneratingStory] = useState(false);
 
   const handleGenre = (event: React.ChangeEvent<HTMLInputElement>) => {
     setGenre(event.target.value);
@@ -77,13 +80,18 @@ export default function Home() {
               <Label htmlFor={answerId}>Characters in the story:</Label>
               <CharactersTable characters={answer.characters} />
             </div>
-            <p className="mt-6 text-lg leading-8 text-gray-100 text-center">
+            <p className="mt-6 text-center text-lg leading-8 text-gray-100">
               Now, generate a new one defining genre and tone.
             </p>
             <GenreSelector selectedGenre={genre} onChange={handleGenre} />
             <ToneSelector selectedTone={tone} onChange={handleTone} />
+            <GenerateStoryButton
+              generatingStory={generatingStory}
+              setGeneratingStory={setGeneratingStory}
+            />
           </>
         )}
+        <Footer />
       </main>
     </>
   );
