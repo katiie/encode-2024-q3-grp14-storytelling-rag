@@ -29,7 +29,7 @@ const SourceText = ({
 
   return (
     <div className="my-2 space-y-2">
-      <Label htmlFor={sourceId}>Load text:</Label>
+      <Label htmlFor={sourceId}>Load text for extracting characters:</Label>
       <div className="flex items-center justify-between">
         <input
           type="file"

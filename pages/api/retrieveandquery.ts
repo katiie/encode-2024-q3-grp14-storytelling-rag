@@ -52,7 +52,7 @@ export default async function handler(
     indexStruct: indexDict,
     serviceContext: serviceContextFromDefaults({
       llm: new OpenAI({
-        model: "gpt-4",
+        model: "gpt-3.5-turbo",
         temperature: temperature,
         topP: topP,
       }),
