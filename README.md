@@ -6,6 +6,8 @@ This is a simple web application that, based on an initial story or text, extrac
 
 ## Getting Started
 
-Run `pnpm install` and `pnpm run dev`
+Run `pnpm install` and `pnpm run dev`. 
 
 Make sure to set your OpenAI key: `export OPENAI_API_KEY-="sk-..."`
+
+Explore the application at http://localhost:3000 🎉
