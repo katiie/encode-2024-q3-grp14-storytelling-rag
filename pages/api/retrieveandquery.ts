@@ -1,6 +1,7 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from "next";
 
+import getStructuredData from "@/pages/api/structuredoutput";
 import {
   IndexDict,
   OpenAI,
@@ -59,7 +60,7 @@ export default async function handler(
     }),
   });
 
-  index.vectorStore.add(embeddingResults);
+  await index.vectorStore.add(embeddingResults);
   if (!index.vectorStore.storesText) {
     await index.docStore.addDocuments(embeddingResults, true);
   }
@@ -72,6 +73,7 @@ export default async function handler(
   const queryEngine = new RetrieverQueryEngine(retriever);
 
   const result = await queryEngine.query(query);
+  const structuredData = await getStructuredData(result.response);
 
-  res.status(200).json({ payload: { response: result.response } });
+  res.status(200).json({ payload: { response: JSON.stringify(structuredData) } });
 }
